@@ -8,9 +8,8 @@ namespace MyClassLib
         private int AmmunitionLoad { get; set; }         // боекомплект
         private double Armor { get; set; }               //уровень брони
         private double Maneuverablility { get; set; }     //уровень маневренности
-        static private int counter = 0;
 
-        Random rnd = new Random();
+        static Random rnd = new Random();
       
         public Tank(string name)
         {
@@ -18,60 +17,42 @@ namespace MyClassLib
             AmmunitionLoad = rnd.Next(0, 100);
             Armor = rnd.NextDouble()*100; 
             Maneuverablility = rnd.NextDouble() * 100;
-            System.Threading.Thread.Sleep(20);                  //пауза для рандома
         }
-
-        public void PrintCharacteristic()
+        
+        public override string ToString()
         {
-            Console.Write($"Название танка: {Name}\n " +
+            return $"Название танка: {Name}\n " +
                 $"Боекомплект: {AmmunitionLoad}\n " +
-                $"Уровень брони: {String.Format("{0:#.##}",Armor)}\n " +
-                $"Уровень маневренности: {String.Format("{0:#.##}",Maneuverablility)}");
-            Console.WriteLine();
+                $"Уровень брони: {String.Format("{0:#.##}", Armor)}\n " +
+                $"Уровень маневренности: {String.Format("{0:#.##}", Maneuverablility)}";
         }
 
         public static string operator * (Tank T34, Tank Pantera)
         {
+            if (T34 > Pantera)
+                return "Победил: T34\n";
+            else 
+                return "Победил: Pantera\n";
+        }
+
+        public static bool operator > (Tank T34, Tank Pantera)
+        {
             if (T34.AmmunitionLoad > Pantera.AmmunitionLoad && T34.Armor > Pantera.Armor ||
                 T34.AmmunitionLoad > Pantera.AmmunitionLoad && T34.Maneuverablility > Pantera.Maneuverablility ||
                 T34.Armor > Pantera.Armor && T34.Maneuverablility > Pantera.Maneuverablility)
-            {
-                counter++;
-                return "Победил: Т34\n";
-            }
+                return true;
             else
-            {
-                counter--;
-                return "Победил: Pantera\n";
-            }
+                return false;
         }
 
-        public string Result()
+        public static bool operator < (Tank T34, Tank Pantera)
         {
-            if (counter > 0)
-                return "В ТАНКОВОМ БОЮ ПОБЕДИЛА КОМАНДА ТАНКОВ Т34\n";
+            if (T34.AmmunitionLoad < Pantera.AmmunitionLoad && T34.Armor < Pantera.Armor ||
+                T34.AmmunitionLoad < Pantera.AmmunitionLoad && T34.Maneuverablility < Pantera.Maneuverablility ||
+                T34.Armor < Pantera.Armor && T34.Maneuverablility < Pantera.Maneuverablility)
+                return false;
             else
-                return "В ТАНКОВОМ БОЮ ПОБЕДИЛА КОМАНДА ТАНКОВ Pantera\n";
-        }
-
-        public string GetName()
-        {
-            return Name;
-        }
-
-        public int GetAmmunitionLoad()
-        {
-            return AmmunitionLoad;
-        }
-
-        public double GetArmor()
-        {
-            return Armor;
-        }
-
-        public double GetManeuverablility()
-        {
-            return Maneuverablility;
+                return true;
         }
     }
 }

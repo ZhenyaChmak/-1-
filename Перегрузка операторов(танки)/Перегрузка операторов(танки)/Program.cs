@@ -7,7 +7,7 @@ namespace Перегрузка_операторов_танки_
     {
         static void Main(string[] args)
         {
-                Console.WriteLine("Введите количество танков:");
+                Console.WriteLine("Введите количество танков:"); //ввод танков добавлен для реализации исключения и для массива
                 int kol1;
                 int.TryParse(Console.ReadLine(), out kol1); //при вводе 0 будет исключение
                 int kol = 10;
@@ -16,48 +16,29 @@ namespace Перегрузка_операторов_танки_
             {
                 int a = kol / kol1;
                 if (kol1 != 5)
-                    throw new Exception("\nВвели не соответствующее количество танков \nTанков должно быть 5"); //при вводе не 5танков будет исключение
-               
-                Tank T34_1 = new Tank("T34_1");
-                Tank Pantera_1 = new Tank("Pantera_1");
-                T34_1.PrintCharacteristic();
-                Pantera_1.PrintCharacteristic();
-                Console.WriteLine(T34_1 * Pantera_1);
+                    throw new Exception("\nВвели не соответствующее количество танков \nTанков должно быть 5"); //при вводе не 5-ти танков будетвыполнено исключение
 
-                Tank T34_2 = new Tank("T34_2");
-                Tank Pantera_2 = new Tank("Pantera_2");
-                T34_2.PrintCharacteristic();
-                Pantera_2.PrintCharacteristic();
-                Console.WriteLine(T34_2 * Pantera_2);
+                Tank[] tanks = new Tank[kol1*2];
 
-                Tank T34_3 = new Tank("T34_3");
-                Tank Pantera_3 = new Tank("Pantera_3");
-                T34_3.PrintCharacteristic();
-                Pantera_3.PrintCharacteristic();
-                Console.WriteLine(T34_3 * Pantera_3);
+                for (int i = 0; i < kol1; i++)
+                {
+                    tanks[i] = new Tank("T34_" + (i+1));
+                    tanks[kol1+i] = new Tank("Pantera_" + (i+1));
+                }
 
-                Tank T34_4 = new Tank("T34_4");
-                Tank Pantera_4 = new Tank("Pantera_4");
-                T34_4.PrintCharacteristic();
-                Pantera_4.PrintCharacteristic();
-                Console.WriteLine(T34_4 * Pantera_4);
+                Resalt resalt = new Resalt();
 
-                Tank T34_5 = new Tank("T34_5");
-                Tank Pantera_5 = new Tank("Pantera_5");
-                T34_5.PrintCharacteristic();
-                Pantera_5.PrintCharacteristic();
-                Console.WriteLine(T34_5 * Pantera_5);
+                for(int i = 0; i < kol1; i++)
+                {
+                    Console.WriteLine( tanks[i].ToString() + "\n" + tanks[kol1+i].ToString()); // вывод характеристик
+                    Console.WriteLine(tanks[i]*tanks[kol1+i]); //сражение танков
+                    if (tanks[i] > tanks[kol1 + i])
+                        resalt.counter++;
+                    else
+                        resalt.counter--;
+                }
 
-                Tank tank = new Tank("Test");
-                Console.WriteLine(tank.Result());
-
-                Console.WriteLine("Вывод отдельно всех методов:");
-                Console.WriteLine(tank.GetName());
-                Console.WriteLine(tank.GetAmmunitionLoad());
-                Console.WriteLine(tank.GetArmor());
-                Console.WriteLine(tank.GetManeuverablility());
-
-                tank.PrintCharacteristic();
+                Console.WriteLine(resalt.Result()); // вывод общего результата
             }
 
             catch (Exception ex) 
@@ -65,7 +46,6 @@ namespace Перегрузка_операторов_танки_
                 Console.WriteLine($"Исключение: { ex.Message}");
                 Console.WriteLine($"Метод: {ex.TargetSite}");
             }
-           
         }
     }
 }

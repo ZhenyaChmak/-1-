@@ -3,3 +3,4 @@ D:\УЧЕБА\Домашка\С#\Перегрузка операторов(та�
 D:\УЧЕБА\Домашка\С#\Перегрузка операторов(танки)\MyClassLib\obj\Debug\MyClassLib.csproj.CoreCompileInputs.cache
 D:\УЧЕБА\Домашка\С#\Перегрузка операторов(танки)\MyClassLib\obj\Debug\MyClassLib.dll
 D:\УЧЕБА\Домашка\С#\Перегрузка операторов(танки)\MyClassLib\obj\Debug\MyClassLib.pdb
+D:\УЧЕБА\Домашка\С#\Перегрузка операторов(танки)\MyClassLib\obj\Debug\MyClassLib.csprojAssemblyReference.cache
